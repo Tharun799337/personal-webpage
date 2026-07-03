@@ -21,7 +21,7 @@ function handleLogout() {
   `;
   document.body.appendChild(flash);
   setTimeout(() => { flash.style.opacity = '1'; }, 10);
-  setTimeout(() => { window.location.href = 'login.html'; }, 1800);
+  setTimeout(() => { window.location.href = 'index.html'; }, 1800);
 }
 
 // ===== CONFIGURATION =====

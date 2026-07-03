@@ -2,288 +2,826 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A breathtaking romantic love story website — a premium digital love album dedicated to someone truly special." />
-  <meta property="og:title" content="Our Beautiful Love Story ❤️" />
-  <meta property="og:description" content="Every picture holds a memory... Every memory reminds me why I love you." />
-  <title>Our Beautiful Love Story ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enter Our World ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { width:100%; height:100%; overflow:hidden; }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(160deg, #1a0a1e 0%, #2d0a2e 30%, #1f0a2f 60%, #2a0a1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+    }
 
-  <!-- AOS -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    /* ── CANVAS particles ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    /* ── FLOATING PETALS ── */
+    .petal {
+      position: fixed;
+      font-size: 1.2rem;
+      pointer-events: none;
+      z-index: 1;
+      animation: petalFall linear infinite;
+      opacity: 0;
+    }
+    @keyframes petalFall {
+      0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    /* ── SCREENS wrapper ── */
+    #screens {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  <link rel="stylesheet" href="style.css" />
+    /* ── SHARED SCREEN BASE ── */
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+    .screen.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: scale(1);
+    }
+
+    /* ════════════════════════════════
+       INTRO SCREEN
+       ════════════════════════════════ */
+    #intro-screen {
+      flex-direction: column;
+      text-align: center;
+      padding: 40px 20px;
+      gap: 0;
+    }
+
+    .intro-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,192,203,0.25);
+      border-radius: 36px;
+      padding: 60px 56px 56px;
+      max-width: 540px;
+      width: 90%;
+      box-shadow:
+        0 30px 80px rgba(255,107,157,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      animation: cardEntrance 1.2s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes cardEntrance {
+      from { opacity:0; transform: scale(0.8) translateY(40px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
+    }
+
+    .intro-emoji {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: block;
+      animation: heartFloat 2s ease-in-out infinite;
+    }
+    @keyframes heartFloat {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-10px) scale(1.08); }
+    }
+
+    .intro-badge {
+      display: inline-block;
+      background: rgba(255,107,157,0.15);
+      border: 1px solid rgba(255,192,203,0.35);
+      border-radius: 40px;
+      padding: 6px 20px;
+      font-size: 0.75rem;
+      color: #ffb3d0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .intro-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.15rem;
+      color: #c3b1e1;
+      opacity: 0.9;
+      margin-bottom: 44px;
+      line-height: 1.6;
+    }
+
+    .intro-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* YES button */
+    .btn-yes {
+      position: relative;
+      background: linear-gradient(135deg, #ff6b9d 0%, #c3b1e1 50%, #b76e79 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 16px 48px;
+      font-size: 1.1rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(255,107,157,0.45);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-yes:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 18px 55px rgba(255,107,157,0.65);
+    }
+    .btn-yes::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      animation: btnShimmer 2.5s linear infinite;
+    }
+    @keyframes btnShimmer { to { left: 100%; } }
+
+    /* NO button — looks like YES but runs away! */
+    .btn-no {
+      position: fixed;
+      z-index: 9999;
+      /* Same gradient as YES button */
+      background: linear-gradient(135deg, #ff6b9d 0%, #c3b1e1 50%, #b76e79 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 16px 48px;
+      font-size: 1.1rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      cursor: not-allowed;
+      letter-spacing: 0.5px;
+      user-select: none;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(255, 107, 157, 0.45);
+      /* Gentle idle wiggle — looks nervous */
+      animation: noWiggle 2.8s ease-in-out infinite;
+      transition:
+        left 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+        top  0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease;
+    }
+
+    /* Same shimmer sweep as YES button */
+    .btn-no::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      animation: btnShimmer 2.5s linear infinite;
+      pointer-events: none;
+    }
+
+    /* Idle nervous wiggle */
+    @keyframes noWiggle {
+      0%,100% { transform: rotate(0deg)    translateY(0px);  }
+      15%      { transform: rotate(-2.5deg) translateY(-3px); }
+      30%      { transform: rotate(2.5deg)  translateY(0px);  }
+      45%      { transform: rotate(-1.8deg) translateY(-4px); }
+      60%      { transform: rotate(1.8deg)  translateY(0px);  }
+      80%      { transform: rotate(0deg)    translateY(-1px); }
+    }
+
+    /* When escaping — panic shake */
+    .btn-no.scared {
+      animation: noPanicRun 0.3s ease-in-out infinite;
+      box-shadow: 0 16px 55px rgba(255, 60, 100, 0.65);
+    }
+    @keyframes noPanicRun {
+      0%,100% { transform: rotate(-4deg) scale(0.95); }
+      50%      { transform: rotate(4deg)  scale(1.05); }
+    }
+
+    .btn-no.initialized { display: block; }
+
+
+
+    /* ════════════════════════════════
+       LOGIN SCREEN
+       ════════════════════════════════ */
+    #login-screen {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,192,203,0.25);
+      border-radius: 36px;
+      padding: 56px 52px 52px;
+      max-width: 460px;
+      width: 90%;
+      box-shadow:
+        0 30px 80px rgba(255,107,157,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      text-align: center;
+    }
+
+    .login-lock {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+      animation: lockPulse 2s ease-in-out infinite;
+    }
+    @keyframes lockPulse {
+      0%,100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 8px rgba(255,107,157,0.4)); }
+      50%      { transform: scale(1.1) rotate(-5deg); filter: drop-shadow(0 0 20px rgba(255,107,157,0.8)); }
+    }
+
+    .login-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .login-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1rem;
+      color: #c3b1e1;
+      opacity: 0.85;
+      margin-bottom: 36px;
+    }
+
+    /* Input group */
+    .input-group {
+      position: relative;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .input-label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #c3b1e1;
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: #ff6b9d;
+      pointer-events: none;
+    }
+    .input-field {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,192,203,0.25);
+      border-radius: 14px;
+      padding: 14px 16px 14px 44px;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      -webkit-text-fill-color: #fff;
+    }
+    .input-field::placeholder { color: rgba(195,177,225,0.45); }
+    .input-field:focus {
+      border-color: rgba(255,107,157,0.7);
+      box-shadow: 0 0 0 3px rgba(255,107,157,0.15);
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Show/hide password toggle */
+    .pw-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #c3b1e1;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+    .pw-toggle:hover { color: #ff6b9d; }
+
+    /* Login button */
+    .btn-login {
+      width: 100%;
+      position: relative;
+      background: linear-gradient(135deg, #ff6b9d 0%, #c3b1e1 50%, #b76e79 100%);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 1.05rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(255,107,157,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 8px;
+    }
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 45px rgba(255,107,157,0.6);
+    }
+    .btn-login::after {
+      content: '';
+      position: absolute;
+      top:0; left:-100%;
+      width:100%; height:100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      animation: btnShimmer 2s linear infinite;
+    }
+
+    /* Error message */
+    .login-error {
+      display: none;
+      background: rgba(255,80,80,0.12);
+      border: 1px solid rgba(255,80,80,0.3);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: #ff8fa3;
+      margin-top: 14px;
+      text-align: center;
+      animation: shake 0.45s ease;
+    }
+    .login-error.show { display: block; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-6px); }
+      80%      { transform: translateX(6px); }
+    }
+
+    /* Shake the card */
+    .login-card.shake { animation: cardShake 0.45s ease; }
+    @keyframes cardShake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-10px); }
+      40%      { transform: translateX(10px); }
+      60%      { transform: translateX(-7px); }
+      80%      { transform: translateX(7px); }
+    }
+
+    /* Back button */
+    .btn-back {
+      margin-top: 24px;
+      background: none;
+      border: none;
+      color: #c3b1e1;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-back:hover { opacity: 1; }
+
+    /* ── SUCCESS FLASH ── */
+    #success-flash {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ff6b9d, #c3b1e1, #b76e79);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    #success-flash.show { opacity: 1; pointer-events: all; }
+    .success-heart {
+      font-size: 6rem;
+      animation: heartBeat 0.8s ease-in-out infinite;
+      margin-bottom: 24px;
+    }
+    @keyframes heartBeat {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.25); }
+    }
+    .success-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .success-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.85);
+      margin-top: 10px;
+    }
+
+    /* ── SPARKLE ── */
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      animation: sparklePop 0.7s ease-out forwards;
+      font-size: 1rem;
+    }
+    @keyframes sparklePop {
+      0%   { opacity:0; transform: scale(0) rotate(0deg); }
+      50%  { opacity:1; transform: scale(1.2) rotate(180deg); }
+      100% { opacity:0; transform: scale(0.5) rotate(360deg) translateY(-30px); }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- BG Canvas -->
+  <canvas id="bg-canvas"></canvas>
 
-  <!-- ===== LOGOUT BUTTON ===== -->
-  <button id="logout-btn" class="logout-btn" onclick="handleLogout()" title="Logout">
-    <span class="logout-icon">🚪</span>
-    <span class="logout-label">Logout</span>
-  </button>
-
-  <!-- ===== FLOATING LOVE NOTES ===== -->
-  <div id="floating-notes-container"></div>
-
-  <!-- ===== MUSIC PLAYER ===== -->
-  <div id="music-player" class="music-player">
-    <div class="music-info">
-      <div class="music-icon">🎵</div>
-      <div class="music-details">
-        <div class="music-title" id="music-title">Romantic Melody 1</div>
-        <div class="music-sub">Love Songs</div>
-      </div>
-    </div>
-    <div class="music-controls">
-      <button id="prev-btn" class="ctrl-btn"><i class="fas fa-backward"></i></button>
-      <button id="play-btn" class="ctrl-btn play-main"><i class="fas fa-play" id="play-icon"></i></button>
-      <button id="next-btn" class="ctrl-btn"><i class="fas fa-forward"></i></button>
-    </div>
-    <div class="volume-wrap">
-      <i class="fas fa-volume-up vol-icon"></i>
-      <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" />
-    </div>
-    <audio id="audio-player"></audio>
+  <!-- Success flash overlay -->
+  <div id="success-flash">
+    <div class="success-heart">❤️</div>
+    <div class="success-text">Welcome, My Love</div>
+    <div class="success-sub">Opening our story just for you... 💕</div>
   </div>
 
-  <!-- ===== HERO SECTION ===== -->
-  <section id="hero" class="hero-section">
-    <canvas id="hero-canvas"></canvas>
-    <div id="particles-js" class="particles-overlay"></div>
-    <div class="hero-clouds"></div>
-    <div class="hero-content">
-      <div class="hero-badge">✨ A Love Story Like No Other ✨</div>
-      <h1 class="hero-title">Our Beautiful<br/><span class="gradient-text">Love Story</span> ❤️</h1>
-      <p class="hero-subtitle">"Every picture holds a memory...<br/>Every memory reminds me why I love you."</p>
-      <div class="hero-stats">
-        <div class="stat-bubble">💕 Together Forever</div>
-        <div class="stat-bubble">🌹 Endlessly in Love</div>
-        <div class="stat-bubble">✨ You & Me</div>
-      </div>
-      <a href="#love-timer" class="hero-btn" id="begin-journey-btn">
-        Begin Our Journey ❤️
-        <span class="btn-glow"></span>
-      </a>
-    </div>
-    <div class="scroll-indicator">
-      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
-      <span>Scroll Down</span>
-    </div>
-  </section>
+  <!-- NO Button (fixed, escapes on hover) -->
+  <button class="btn-no" id="btn-no">No 🙈</button>
 
-  <!-- ===== LOVE TIMER ===== -->
-  <section id="love-timer" class="section timer-section" data-aos="fade-up">
-    <div class="section-badge">⏳ Our Time Together</div>
-    <h2 class="section-title">Every Second With You Is a Treasure</h2>
-    <p class="section-sub">Time flies when you're with the one you love most...</p>
-    <div class="timer-date-row">
-      <div class="timer-date-card" data-aos="zoom-in" data-aos-delay="100" style="max-width: 400px; padding: 24px 40px;">
-        <div class="tdc-icon">💍</div>
-        <div class="tdc-label">Proposal Accepted Date</div>
-        <div class="tdc-val" style="font-size: 1.5rem;">February 7, 2025</div>
-      </div>
-    </div>
-    <div class="timer-display">
-      <div class="timer-unit" data-aos="zoom-in" data-aos-delay="100">
-        <div class="timer-num" id="t-years">0</div>
-        <div class="timer-label">Years</div>
-      </div>
-      <div class="timer-sep">❤️</div>
-      <div class="timer-unit" data-aos="zoom-in" data-aos-delay="150">
-        <div class="timer-num" id="t-months">0</div>
-        <div class="timer-label">Months</div>
-      </div>
-      <div class="timer-sep">❤️</div>
-      <div class="timer-unit" data-aos="zoom-in" data-aos-delay="200">
-        <div class="timer-num" id="t-days">0</div>
-        <div class="timer-label">Days</div>
-      </div>
-      <div class="timer-sep">❤️</div>
-      <div class="timer-unit" data-aos="zoom-in" data-aos-delay="250">
-        <div class="timer-num" id="t-hours">0</div>
-        <div class="timer-label">Hours</div>
-      </div>
-      <div class="timer-sep">❤️</div>
-      <div class="timer-unit" data-aos="zoom-in" data-aos-delay="300">
-        <div class="timer-num" id="t-minutes">0</div>
-        <div class="timer-label">Minutes</div>
-      </div>
-      <div class="timer-sep">❤️</div>
-      <div class="timer-unit" data-aos="zoom-in" data-aos-delay="350">
-        <div class="timer-num seconds-unit" id="t-seconds">0</div>
-        <div class="timer-label">Seconds</div>
-      </div>
-    </div>
-    <p class="timer-footer">...and every single second has been absolutely worth it 💕</p>
-  </section>
+  <!-- Screens -->
+  <div id="screens">
 
-  <!-- ===== PHOTO GALLERY — FLOATING PETAL STYLE ===== -->
-  <section id="gallery" class="gallery-section-full">
-    <div class="gallery-header" data-aos="fade-up">
-      <div class="section-badge">📸 Our Memories</div>
-      <h2 class="section-title">Our Beautiful Photo Album</h2>
-      <p class="section-sub">"Each photo is a chapter in our love story — a moment frozen in time, forever beautiful."</p>
-    </div>
-    <!-- Floating petal photos scene -->
-    <div class="floating-scene" id="floating-scene">
-      <div class="scene-bg-glow"></div>
-      <div id="petal-photos"></div>
-    </div>
-    <!-- Scroll hint -->
-    <div class="gallery-scroll-hint" data-aos="fade-up">
-      <span>✨ Click any photo to view the full memory ✨</span>
-    </div>
-  </section>
-
-  <!-- ===== LIGHTBOX ===== -->
-  <div id="lightbox" class="lightbox">
-    <div class="lightbox-overlay" id="lb-overlay"></div>
-    <div class="lightbox-container">
-      <button class="lb-close" id="lb-close">✕</button>
-      <button class="lb-nav lb-prev" id="lb-prev">❮</button>
-      <div class="lb-content">
-        <img id="lb-img" src="" alt="Memory" />
-        <div class="lb-info">
-          <div class="lb-title" id="lb-title"></div>
-          <div class="lb-desc" id="lb-desc"></div>
+    <!-- ── INTRO SCREEN ── -->
+    <div class="screen visible" id="intro-screen">
+      <div class="intro-card">
+        <span class="intro-emoji">🌹</span>
+        <div class="intro-badge">✨ A Special Invitation ✨</div>
+        <h1 class="intro-title">Do You Want to Explore<br/>Our Love Story?</h1>
+        <p class="intro-sub">"Something magical is waiting for you<br/>on the other side of yes..."</p>
+        <div class="intro-buttons">
+          <button class="btn-yes" id="btn-yes">Yes, I Do! 💕</button>
+          <!-- btn-no is fixed positioned, placed separately -->
+          <span style="min-width:130px; display:inline-block; height:52px;"></span>
         </div>
       </div>
-      <button class="lb-nav lb-next" id="lb-next">❯</button>
     </div>
-  </div>
 
-  <!-- ===== LOVE LETTER ===== -->
-  <section id="love-letter" class="section letter-section" data-aos="fade-up">
-    <div class="section-badge">💌 From My Heart</div>
-    <h2 class="section-title">A Letter Written Just For You</h2>
-    <div class="letter-paper" data-aos="zoom-in">
-      <div class="letter-lines"></div>
-      <div class="letter-content">
-        <div class="letter-salutation">My Dearest Love,</div>
-        <div class="letter-body" id="letter-body">
-          <p>You entered my life unexpectedly, like the first ray of sunlight breaking through clouds I never knew were there. And from that moment, everything changed — the world became softer, kinder, and infinitely more beautiful because you were in it.</p>
-          <p>I don't count my blessings anymore, because you are all of them. Every single one. When I look at you, I see the answer to every prayer I never knew how to say, and the fulfillment of every dream I was afraid to dream.</p>
-          <p>Every smile of yours becomes my happiness. I find myself memorizing the way your eyes crinkle at the corners, the way your laugh fills a room and makes everything lighter. These are the details I carry with me everywhere — the small things that make you irreplaceable.</p>
-          <p>I promise to keep creating beautiful memories with you. To hold your hand through every sunrise and every storm. To be your safe harbor when the world feels too loud, and your greatest cheerleader when you need to be reminded how extraordinary you truly are.</p>
-          <p>You didn't just walk into my life — you became my life. You are my favorite chapter, my most cherished memory, and my greatest adventure all wrapped into one beautiful person.</p>
-          <p>I'll choose you in every lifetime. In every universe. In every version of every story — always, unapologetically, completely you.</p>
-          <p>There are not enough words in any language to describe what you mean to me. But know this: every beat of my heart is yours. Every dream I chase is richer because you're beside me. Every morning feels like a gift because you are part of it.</p>
-          <p>Thank you for your patience, your kindness, your love. Thank you for seeing me — truly seeing me — and choosing to stay. That is the greatest gift you could ever give me.</p>
-          <p>With all my love, now and always,</p>
+    <!-- ── LOGIN SCREEN ── -->
+    <div class="screen hidden" id="login-screen">
+      <div class="login-card" id="login-card">
+        <span class="login-lock">🔐</span>
+        <h2 class="login-title">Enter Our World</h2>
+        <p class="login-sub">Only you know the secret... 💖</p>
+
+        <div class="input-group">
+          <label class="input-label" for="username">Username</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input
+              class="input-field"
+              type="text"
+              id="username"
+              placeholder="Enter your name..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
         </div>
-        <div class="letter-signature">Forever Yours ❤️</div>
+
+        <div class="input-group">
+          <label class="input-label" for="password">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔑</span>
+            <input
+              class="input-field"
+              type="password"
+              id="password"
+              placeholder="Enter your secret..."
+              autocomplete="off"
+            />
+            <button class="pw-toggle" id="pw-toggle" type="button" title="Show/hide password">👁</button>
+          </div>
+        </div>
+
+        <button class="btn-login" id="btn-login">Open Our Story ❤️</button>
+
+        <div class="login-error" id="login-error">
+          ❌ Hmm, that doesn't seem right. Try again, my love...
+        </div>
+
+        <button class="btn-back" id="btn-back">
+          ← Go back
+        </button>
       </div>
-      <div class="letter-rose">🌹</div>
     </div>
-  </section>
 
-  <!-- ===== 100 REASONS ===== -->
-  <section id="reasons" class="section reasons-section">
-    <div class="section-badge" data-aos="fade-up">❤️ Because of You</div>
-    <h2 class="section-title" data-aos="fade-up">100 Reasons Why I Love You</h2>
-    <p class="section-sub" data-aos="fade-up">Flip each card to discover a reason that makes you absolutely irreplaceable.</p>
-    <div class="reasons-grid" id="reasons-grid"></div>
-  </section>
-
-  <!-- ===== QUOTES CAROUSEL ===== -->
-  <section id="quotes" class="section quotes-section" data-aos="fade-up">
-    <div class="section-badge">💬 Words of Love</div>
-    <h2 class="section-title">Romantic Whispers</h2>
-    <div class="quotes-carousel">
-      <div class="quote-display">
-        <div class="quote-icon">❝</div>
-        <div class="quote-text" id="quote-text"></div>
-        <div class="quote-author" id="quote-author"></div>
-      </div>
-      <div class="quote-dots" id="quote-dots"></div>
-    </div>
-  </section>
-
-  <!-- ===== INTERACTIVE HEART ===== -->
-  <section id="heart-section" class="section heart-section" data-aos="zoom-in">
-    <div class="section-badge">💖 Click With Love</div>
-    <h2 class="section-title">Our Heart</h2>
-    <p class="section-sub">Click the heart and feel the magic...</p>
-    <div class="heart-container">
-      <div class="giant-heart" id="giant-heart">
-        <div class="heart-inner">❤️</div>
-        <div class="heart-pulse"></div>
-      </div>
-      <div class="heart-message" id="heart-message"></div>
-    </div>
-  </section>
-
-  <!-- ===== SURPRISE BUTTON ===== -->
-  <section id="surprise-section" class="section surprise-section" data-aos="fade-up">
-    <div class="section-badge">🎁 Something Special</div>
-    <h2 class="section-title">A Surprise Just For You</h2>
-    <p class="section-sub">Every click is a little reminder of how much you mean to me...</p>
-    <button class="surprise-btn" id="surprise-btn">
-      <span class="surprise-btn-text">Click for a Surprise ❤️</span>
-      <span class="surprise-glow"></span>
-    </button>
-  </section>
-
-  <!-- Surprise Modal -->
-  <div id="surprise-modal" class="surprise-modal">
-    <div class="sm-overlay" id="sm-overlay"></div>
-    <div class="sm-content">
-      <div class="sm-roses">🌹🌸🌹🌸🌹</div>
-      <div class="sm-heart">💖</div>
-      <h2 class="sm-title">You Are My Everything</h2>
-      <p class="sm-message">"Thank you for making my life more beautiful than I ever imagined. I love you more every single day. You are not just my girlfriend — you are my home, my peace, my greatest joy. Every day with you is a gift I will forever cherish."</p>
-      <div class="sm-footer">💕 I Love You To The Moon And Back 💕</div>
-      <button class="sm-close" id="sm-close">Close ❤️</button>
-    </div>
   </div>
 
-  <!-- ===== FUTURE DREAMS ===== -->
-  <section id="dreams" class="section dreams-section">
-    <div class="section-badge" data-aos="fade-up">🌅 Our Tomorrow</div>
-    <h2 class="section-title" data-aos="fade-up">Our Future Dreams</h2>
-    <p class="section-sub" data-aos="fade-up">Everything I dream of, I dream of with you beside me...</p>
-    <div class="dreams-grid" id="dreams-grid"></div>
-  </section>
+  <script>
+    /* ═══════════════════════════════════════
+       BG CANVAS — Hearts + Stars + Petals
+    ═══════════════════════════════════════ */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
 
-  <!-- ===== LOVE STATISTICS ===== -->
-  <section id="stats" class="section stats-section" data-aos="fade-up">
-    <div class="section-badge">📊 Our Love in Numbers</div>
-    <h2 class="section-title">Love Statistics</h2>
-    <div class="stats-grid" id="stats-grid"></div>
-  </section>
+    const SYMBOLS = ['❤️','💕','✨','🌹','💫','⭐','🌸','💖','🦋','🌙'];
 
-  <!-- ===== FOOTER ===== -->
-  <footer id="footer" class="footer-section">
-    <div id="footer-canvas-wrap">
-      <canvas id="footer-canvas"></canvas>
-    </div>
-    <div class="footer-content" data-aos="fade-up">
-      <div class="footer-moon">🌙</div>
-      <div class="footer-stars-row">✨ ⭐ 🌟 ✨ ⭐ 🌟 ✨</div>
-      <div class="footer-fireflies" id="footer-fireflies"></div>
-      <p class="footer-quote">"Every picture tells our story... and every story reminds me<br/>that loving you is the best thing I've ever done."</p>
-      <div class="footer-divider">🌹 ❤️ 🌹</div>
-      <div class="footer-forever">Forever Yours ❤️</div>
-      <div class="footer-credits">Made with endless love, just for you 💕</div>
-    </div>
-  </footer>
+    class Particle {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x = Math.random() * W;
+        this.y = init ? Math.random() * H : H + 20;
+        this.size = 10 + Math.random() * 16;
+        this.speed = 0.35 + Math.random() * 0.8;
+        this.symbol = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+        this.opacity = 0.25 + Math.random() * 0.45;
+        this.wobble = Math.random() * Math.PI * 2;
+        this.wobbleSpeed = 0.015 + Math.random() * 0.025;
+      }
+      update() {
+        this.y -= this.speed;
+        this.wobble += this.wobbleSpeed;
+        this.x += Math.sin(this.wobble) * 0.5;
+        if (this.y < -30) this.reset(false);
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.font = `${this.size}px serif`;
+        ctx.fillText(this.symbol, this.x, this.y);
+        ctx.restore();
+      }
+    }
 
-  <!-- ===== SCRIPTS ===== -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script src="app.js"></script>
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < 55; i++) particles.push(new Particle());
+
+    function animBG() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animBG);
+    }
+    animBG();
+
+    /* ═══════════════════════════════════════
+       NO BUTTON — Runs Away on Hover
+    ═══════════════════════════════════════ */
+    const btnNo = document.getElementById('btn-no');
+    const btnNoW = 130, btnNoH = 52;
+
+    function randomPos() {
+      const margin = 20;
+      const maxX = window.innerWidth  - btnNoW  - margin;
+      const maxY = window.innerHeight - btnNoH - margin;
+      return {
+        x: margin + Math.random() * maxX,
+        y: margin + Math.random() * maxY
+      };
+    }
+
+    // Initial position — bottom-center area near the intro card buttons
+    function initNoBtn() {
+      btnNo.style.transition = 'left 0.25s ease, top 0.25s ease';
+      const iw = window.innerWidth;
+      const ih = window.innerHeight;
+      // Put it visually near where the YES button would be
+      btnNo.style.left = (iw / 2 + 20) + 'px';
+      btnNo.style.top  = (ih / 2 + 60) + 'px';
+      btnNo.classList.add('initialized');
+    }
+    initNoBtn();
+    window.addEventListener('resize', initNoBtn);
+
+    let lastNoPos = null;
+    btnNo.addEventListener('mouseenter', () => {
+      let pos;
+      let tries = 0;
+      do {
+        pos = randomPos();
+        tries++;
+      } while (
+        tries < 20 &&
+        lastNoPos &&
+        Math.abs(pos.x - lastNoPos.x) < 120 &&
+        Math.abs(pos.y - lastNoPos.y) < 60
+      );
+      lastNoPos = pos;
+
+      // Panic! Add scared class & change emoji
+      btnNo.classList.add('scared');
+      btnNo.textContent = 'No 😱';
+
+      btnNo.style.left = pos.x + 'px';
+      btnNo.style.top  = pos.y + 'px';
+
+      // Calm down after escaping
+      setTimeout(() => {
+        btnNo.classList.remove('scared');
+        btnNo.textContent = 'No 🙈';
+      }, 700);
+    });
+
+    // If somehow clicked (shouldn't happen) — do nothing
+    btnNo.addEventListener('click', e => { e.preventDefault(); });
+
+    /* ═══════════════════════════════════════
+       SCREEN TRANSITIONS
+    ═══════════════════════════════════════ */
+    const introScreen = document.getElementById('intro-screen');
+    const loginScreen = document.getElementById('login-screen');
+
+    function showLogin() {
+      introScreen.classList.remove('visible');
+      introScreen.classList.add('hidden');
+      btnNo.style.display = 'none'; // hide NO button on login screen
+      setTimeout(() => {
+        loginScreen.classList.remove('hidden');
+        loginScreen.classList.add('visible');
+        document.getElementById('username').focus();
+      }, 400);
+    }
+
+    function showIntro() {
+      loginScreen.classList.remove('visible');
+      loginScreen.classList.add('hidden');
+      setTimeout(() => {
+        introScreen.classList.remove('hidden');
+        introScreen.classList.add('visible');
+        btnNo.style.display = '';
+        initNoBtn();
+      }, 400);
+    }
+
+    document.getElementById('btn-yes').addEventListener('click', showLogin);
+    document.getElementById('btn-back').addEventListener('click', showIntro);
+
+    /* ═══════════════════════════════════════
+       PASSWORD TOGGLE
+    ═══════════════════════════════════════ */
+    const pwField  = document.getElementById('password');
+    const pwToggle = document.getElementById('pw-toggle');
+    pwToggle.addEventListener('click', () => {
+      const show = pwField.type === 'password';
+      pwField.type = show ? 'text' : 'password';
+      pwToggle.textContent = show ? '🙈' : '👁';
+    });
+
+    /* ═══════════════════════════════════════
+       LOGIN LOGIC
+    ═══════════════════════════════════════ */
+    const CORRECT_USER = 'AmruTHA';
+    const CORRECT_PASS = '202507';
+
+    const loginCard  = document.getElementById('login-card');
+    const loginError = document.getElementById('login-error');
+    const successFlash = document.getElementById('success-flash');
+
+    function attemptLogin() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+
+      if (user === CORRECT_USER && pass === CORRECT_PASS) {
+        // ── SUCCESS ──
+        loginError.classList.remove('show');
+        burstSparkles();
+        successFlash.classList.add('show');
+        setTimeout(() => {
+          window.location.href = 'main.html';
+        }, 2200);
+      } else {
+        // ── WRONG ──
+        loginError.classList.add('show');
+        loginCard.classList.remove('shake');
+        void loginCard.offsetWidth; // reflow to restart animation
+        loginCard.classList.add('shake');
+        setTimeout(() => loginError.classList.remove('show'), 3500);
+      }
+    }
+
+    document.getElementById('btn-login').addEventListener('click', attemptLogin);
+    document.getElementById('password').addEventListener('keydown', e => {
+      if (e.key === 'Enter') attemptLogin();
+    });
+    document.getElementById('username').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('password').focus();
+    });
+
+    /* ═══════════════════════════════════════
+       SPARKLE BURST on success
+    ═══════════════════════════════════════ */
+    function burstSparkles() {
+      const symbols = ['❤️','💕','✨','🌹','💖','🦋','⭐'];
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'sparkle';
+          el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+          el.style.left = (10 + Math.random() * 80) + 'vw';
+          el.style.top  = (10 + Math.random() * 80) + 'vh';
+          el.style.animationDelay = (Math.random() * 0.4) + 's';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 1200);
+        }, i * 40);
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       MOUSE SPARKLE TRAIL
+    ═══════════════════════════════════════ */
+    let lastTrail = 0;
+    document.addEventListener('mousemove', e => {
+      const now = Date.now();
+      if (now - lastTrail < 80) return;
+      lastTrail = now;
+      if (Math.random() > 0.6) return;
+      const el = document.createElement('div');
+      el.className = 'sparkle';
+      el.textContent = Math.random() > 0.5 ? '✨' : '💕';
+      el.style.left = e.clientX + 'px';
+      el.style.top  = e.clientY + 'px';
+      el.style.fontSize = '0.8rem';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 700);
+    });
+  </script>
 </body>
 </html>
