@@ -508,19 +508,17 @@ function initGallery() {
     const el = document.createElement('div');
     el.className = 'petal-photo';
     el.style.cssText = `
-      width: ${w}px;
       animation: ${driftAnim} ${layout.speed}s ease-in-out ${delay}s infinite;
     `;
 
     el.innerHTML = `
       <div class="petal-glow"></div>
-      <div class="petal-frame" style="width:${w}px; height:${h}px;">
+      <div class="petal-frame">
         <img
           src="${photo.src}"
           alt="${photo.title}"
           loading="lazy"
-          style="width:${w}px; height:${h}px;"
-          onerror="this.style.display='none'; this.parentElement.style.background='rgba(255,107,157,0.15)'; this.parentElement.innerHTML += '<div style=\\'display:flex;align-items:center;justify-content:center;height:${h}px;font-size:3rem;\\'>📸</div>'"
+          onerror="this.style.display='none'; this.parentElement.style.background='rgba(255,107,157,0.15)'; this.parentElement.innerHTML += '<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:3rem;\\'>📸</div>'"
         />
         <div class="petal-caption">
           <div class="petal-caption-title">${photo.title}</div>

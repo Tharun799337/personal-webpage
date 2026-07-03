@@ -358,9 +358,9 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 40px;
-  max-width: 1400px;
-  margin: 0 auto;
+  gap: 30px;
+  max-width: 100%;
+  padding: 40px 5%;
 }
 
 /* Individual floating photo */
@@ -372,11 +372,15 @@ body {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.35s ease,
               filter 0.35s ease;
+  flex: 1 1 250px;
+  max-width: 320px;
 }
 
 /* Photo frame */
 .petal-frame {
   position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
   border-radius: 16px;
   overflow: hidden;
   box-shadow:
@@ -682,19 +686,16 @@ body {
   /* Gallery - Flow Layout instead of Absolute */
   .gallery-header { padding: 0 15px; }
   .floating-scene {
-    display: flex !important;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 15px;
-    min-height: auto !important;
     padding: 20px 0;
   }
+  #petal-photos {
+    padding: 20px 15px;
+    gap: 20px;
+  }
   .petal-photo {
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
-    width: 45% !important;
-    margin-bottom: 20px;
+    flex: 1 1 150px !important;
+    max-width: 45% !important;
+    margin-bottom: 10px;
   }
   .petal-frame {
     width: 100% !important;
