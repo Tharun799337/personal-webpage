@@ -671,8 +671,6 @@ body {
     top: auto !important;
     width: 45% !important;
     margin-bottom: 20px;
-    animation: none !important; /* Disable drift for clean layout */
-    transform: none !important;
   }
   .petal-frame {
     width: 100% !important;
