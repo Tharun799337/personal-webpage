@@ -825,6 +825,18 @@ function initMusicPlayer() {
   audio.addEventListener('ended', () => { loadSong((current + 1) % SONGS.length); });
 
   loadSong(0);
+
+  // Auto-play on first user interaction anywhere on the page
+  let firstInteraction = true;
+  document.body.addEventListener('click', (e) => {
+    // If they clicked the play/pause button itself, let togglePlay handle it
+    if (e.target.closest('#play-btn')) return;
+    
+    if (firstInteraction && !playing) {
+      togglePlay();
+      firstInteraction = false;
+    }
+  }, { once: true });
 }
 
 // ===== SPARKLE EFFECTS =====
