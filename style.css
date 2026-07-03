@@ -241,11 +241,15 @@ body {
   animation: subFadeIn 1.5s ease-out 0.3s both;
 }
 @keyframes subFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 0.9; transform: translateY(0); } }
-.hero-photo-wrap { position: relative; width: 250px; height: 350px; margin: 0 auto 40px; animation: subFadeIn 1.5s ease-out 0.4s both; perspective: 1000px; }
-.hero-photo-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 115%; height: 115%; background: rgba(255, 107, 157, 0.35); filter: blur(30px); border-radius: 24px; z-index: 1; animation: pulseGlow 4s infinite alternate; }
-.hero-img { position: relative; width: 100%; height: 100%; border-radius: 16px; object-fit: cover; border: 4px solid rgba(255, 179, 208, 0.5); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); z-index: 2; transition: all 0.5s ease; }
-.hero-img:hover { transform: scale(1.04) rotate(2deg) translateY(-5px); border-color: #fff; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 107, 157, 0.6); }
-.hero-stats { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; animation: subFadeIn 1.5s ease-out 0.5s both; }
+.hero-split { display: flex; align-items: center; justify-content: space-between; gap: 40px; text-align: left; max-width: 1200px; margin: 0 auto; }
+.hero-text-col { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.hero-photo-col { flex: 0 0 400px; display: flex; justify-content: flex-end; position: relative; }
+
+.cutout-wrap { position: relative; width: 100%; max-width: 350px; height: auto; animation: subFadeIn 1.5s ease-out 0.4s both; }
+.cutout-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120%; height: 120%; background: radial-gradient(circle, rgba(255, 107, 157, 0.4) 0%, transparent 65%); border-radius: 50%; z-index: 1; animation: pulseGlow 4s infinite alternate; filter: blur(20px); }
+.cutout-img { position: relative; width: 100%; height: auto; border-radius: 0; object-fit: contain; z-index: 2; transition: all 0.5s ease; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.6)); border: none; box-shadow: none; }
+.cutout-img:hover { transform: scale(1.05) translateY(-10px); filter: drop-shadow(0 25px 40px rgba(255,107,157,0.5)); }
+.hero-stats { display: flex; gap: 14px; justify-content: flex-start; flex-wrap: wrap; margin-bottom: 40px; animation: subFadeIn 1.5s ease-out 0.5s both; }
 .stat-bubble {
   background: rgba(255, 107, 157, 0.12);
   border: 1px solid rgba(255, 192, 203, 0.3);
@@ -656,9 +660,12 @@ body {
   .section { padding: 50px 15px; }
   
   /* Hero Section */
+  .hero-split { flex-direction: column-reverse; text-align: center; gap: 30px; margin-top: 20px; }
+  .hero-text-col { align-items: center; }
+  .hero-photo-col { flex: 0 0 auto; width: 100%; justify-content: center; }
   .hero-title { font-size: 2.8rem; line-height: 1.2; margin-bottom: 15px; }
-  .hero-subtitle { font-size: 1.1rem; padding: 0 10px; }
-  .hero-stats { flex-direction: column; gap: 10px; }
+  .hero-subtitle { font-size: 1.1rem; padding: 0 10px; text-align: center; }
+  .hero-stats { flex-direction: column; gap: 10px; justify-content: center; align-items: center; }
   .stat-bubble { font-size: 0.9rem; padding: 8px 16px; }
   
   /* Profile & Quote Section */
