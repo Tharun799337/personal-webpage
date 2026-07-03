@@ -108,6 +108,36 @@ const CONFIG = {
       title: 'My Greatest Adventure',
       desc: 'I have seen beautiful places and lived beautiful moments. But nothing compares to the adventure of loving you. Of growing with you. Of discovering, day by day, how extraordinary ordinary life becomes when you live it with your person.',
       quote: '❝ You are my greatest adventure ❞'
+    },
+    {
+      src: 'photos/photo_14.jpeg',
+      title: 'A Lifetime of Love',
+      desc: 'If I had to live my life over again, I would find you sooner. Because every day with you is a gift, and I want as many of those days as possible. You are my forever and always.',
+      quote: '❝ I would find you sooner ❞'
+    },
+    {
+      src: 'photos/photo_15.jpeg',
+      title: 'The Light of My Life',
+      desc: 'You are the sun that warms my days and the moon that lights my darkest nights. Your smile is my compass, and your love is my anchor. I am so incredibly blessed to be loved by you.',
+      quote: '❝ You light up my world ❞'
+    },
+    {
+      src: 'photos/photo_16.jpeg',
+      title: 'Our Beautiful Journey',
+      desc: 'Love is not just about looking at each other, but looking in the same direction. Hand in hand, step by step, we are building a beautiful life together. And I wouldn\'t want it any other way.',
+      quote: '❝ Hand in hand, always ❞'
+    },
+    {
+      src: 'photos/photo_17.jpeg',
+      title: 'More Than Words',
+      desc: 'Sometimes I just look at you and wonder how I got so lucky. You are everything I ever wanted and everything I never knew I needed. You are my dream come true.',
+      quote: '❝ You are my dream come true ❞'
+    },
+    {
+      src: 'photos/photo_18.jpeg',
+      title: 'Forever Yours',
+      desc: 'No matter what happens, no matter where life takes us, my heart will always belong to you. You are my today, my tomorrow, and all of my forevers. I love you, endlessly.',
+      quote: '❝ Endlessly in love with you ❞'
     }
   ]
 };
