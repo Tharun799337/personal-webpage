@@ -782,6 +782,7 @@ function initFooterFireflies() {
 // ===== MUSIC PLAYER =====
 function initMusicPlayer() {
   const SONGS = [
+    { title: 'Our Special Song', url: 'audio/whatsapp_audio.mpeg' },
     { title: 'Romantic Melody 1', url: 'https://www.bensound.com/bensound-music/bensound-romantic.mp3' },
     { title: 'Acoustic Love', url: 'https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3' },
     { title: 'Tender Moments', url: 'https://www.bensound.com/bensound-music/bensound-tenderness.mp3' }
