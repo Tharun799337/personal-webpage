@@ -503,6 +503,22 @@
       50%  { opacity:1; transform: scale(1.2) rotate(180deg); }
       100% { opacity:0; transform: scale(0.5) rotate(360deg) translateY(-30px); }
     }
+    /* ════════════════════════════════
+       MOBILE RESPONSIVENESS
+       ════════════════════════════════ */
+    @media (max-width: 768px) {
+      .intro-title { font-size: 2rem; }
+      .intro-sub { font-size: 1rem; }
+      .intro-card, .login-card { padding: 30px 20px; width: 90%; }
+      .intro-buttons { flex-direction: column; gap: 20px; }
+      
+      /* Make the NO button relative so it doesn't break layout before it's hovered */
+      .btn-yes, .btn-no { width: 100%; text-align: center; }
+      .btn-no { position: relative; padding: 16px 20px; }
+      
+      /* When JS gives it fixed coordinates, it will still escape! */
+      .btn-no[style*="left"] { position: fixed; width: auto; }
+    }
   </style>
 </head>
 <body>

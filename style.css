@@ -639,19 +639,62 @@ body {
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
-  .section { padding: 60px 20px; }
-  .timer-display { gap: 8px; }
-  .timer-unit { min-width: 70px; padding: 20px 14px; }
-  .timer-num { font-size: 1.8rem; }
-  .gallery-grid { grid-template-columns: 1fr; }
-  .letter-paper { padding: 40px 28px; }
+  .section { padding: 50px 15px; }
+  
+  /* Hero Section */
+  .hero-title { font-size: 2.8rem; line-height: 1.2; margin-bottom: 15px; }
+  .hero-subtitle { font-size: 1.1rem; padding: 0 10px; }
+  .hero-stats { flex-direction: column; gap: 10px; }
+  .stat-bubble { font-size: 0.9rem; padding: 8px 16px; }
+  
+  /* Timer Section */
+  .timer-display { flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .timer-date-row { flex-direction: column; width: 100%; align-items: center; }
+  .timer-date-card { width: 90%; max-width: 100% !important; padding: 20px !important; }
+  .timer-unit { min-width: 80px; padding: 15px; flex: 1 1 30%; }
+  .timer-num { font-size: 1.5rem; }
+  .timer-sep { display: none; /* Hide separators on mobile as they wrap poorly */ }
+  
+  /* Gallery - Flow Layout instead of Absolute */
+  .gallery-header { padding: 0 15px; }
+  .floating-scene {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 15px;
+    min-height: auto !important;
+    padding: 20px 0;
+  }
+  .petal-photo {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 45% !important;
+    margin-bottom: 20px;
+    animation: none !important; /* Disable drift for clean layout */
+    transform: none !important;
+  }
+  .petal-frame {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1.35;
+  }
+  .petal-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+  
+  /* Other sections */
+  .letter-paper { padding: 30px 20px; font-size: 1rem; }
+  .reasons-grid, .dreams-grid { grid-template-columns: 1fr; gap: 15px; }
+  .reason-card, .dream-card { min-height: 120px; }
+  
+  /* Utilities */
   .music-player { min-width: unset; width: calc(100vw - 32px); right: 16px; bottom: 16px; flex-wrap: wrap; gap: 10px; }
-  .reasons-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   .lb-nav { display: none; }
-  .lightbox-container { max-width: 95vw; }
-  .sm-content { padding: 40px 24px; }
-  .surprise-btn { padding: 18px 40px; font-size: 1rem; }
-  .timer-sep { font-size: 0.8rem; }
+  .lightbox-container { max-width: 95vw; padding: 15px; }
+  .lb-img { max-height: 50vh; }
 }
 
 @keyframes sparkle { 0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(180deg); } }
