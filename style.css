@@ -643,7 +643,7 @@ body {
 .pq-photo { position: relative; width: 100%; border-radius: 40px 100px 40px 100px; border: 3px solid rgba(255, 179, 208, 0.4); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 107, 157, 0.3); z-index: 2; object-fit: cover; transition: transform 0.5s ease; -webkit-mask-image: radial-gradient(circle at center, black 75%, transparent 100%); mask-image: radial-gradient(circle at center, black 75%, transparent 100%); }
 .pq-photo:hover { transform: scale(1.03) rotate(1deg); }
 .pq-quote-container { flex: 1; }
-.pq-quote { font-family: var(--font-display); font-size: 2.2rem; line-height: 1.6; color: #ffe0ec; text-shadow: 0 0 20px rgba(255, 107, 157, 0.5); font-style: italic; position: relative; }
+.pq-quote { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.6; color: #ffe0ec; text-shadow: 0 0 20px rgba(255, 107, 157, 0.5); font-style: italic; position: relative; }
 .pq-quote::before { content: '❝'; font-family: var(--font-script); font-size: 5rem; color: var(--pink); opacity: 0.3; position: absolute; top: -30px; left: -50px; }
 .pq-quote::after { content: '❞'; font-family: var(--font-script); font-size: 5rem; color: var(--pink); opacity: 0.3; position: absolute; bottom: -50px; right: -20px; }
 
@@ -660,7 +660,7 @@ body {
   /* Profile & Quote Section */
   .profile-quote-section { flex-direction: column; gap: 30px; margin: 30px auto; padding: 0 20px; }
   .pq-photo-container { flex: 0 0 auto; width: 250px; }
-  .pq-quote { font-size: 1.4rem; text-align: center; }
+  .pq-quote { font-size: 1.1rem; text-align: center; }
   .pq-quote::before { left: -15px; top: -20px; font-size: 4rem; }
   .pq-quote::after { right: -5px; bottom: -30px; font-size: 4rem; }
   
