@@ -508,10 +508,7 @@ function initGallery() {
     const el = document.createElement('div');
     el.className = 'petal-photo';
     el.style.cssText = `
-      left: ${layout.left}%;
-      top: ${layout.top}px;
       width: ${w}px;
-      z-index: ${layout.z};
       animation: ${driftAnim} ${layout.speed}s ease-in-out ${delay}s infinite;
     `;
 
@@ -537,21 +534,7 @@ function initGallery() {
     scene.appendChild(el);
   });
 
-  // Dynamically set scene height to contain all photos
-  const sceneEl = document.getElementById('floating-scene');
-  const petalEl = document.getElementById('petal-photos');
-  setTimeout(() => {
-    const items = petalEl.querySelectorAll('.petal-photo');
-    let maxBottom = 900;
-    items.forEach(item => {
-      const rect = item.getBoundingClientRect();
-      const sceneRect = petalEl.getBoundingClientRect();
-      const bottom = (item.offsetTop || 0) + (item.offsetHeight || 0) + 60;
-      if (bottom > maxBottom) maxBottom = bottom;
-    });
-    sceneEl.style.minHeight = maxBottom + 'px';
-    petalEl.style.minHeight = maxBottom + 'px';
-  }, 500);
+
 
   // ── Lightbox ──
   function openLightbox(i) {

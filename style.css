@@ -339,8 +339,8 @@ body {
 .floating-scene {
   position: relative;
   width: 100%;
-  min-height: 960px;
   overflow: hidden;
+  padding: 60px 0;
 }
 .scene-bg-glow {
   position: absolute;
@@ -351,11 +351,21 @@ body {
     radial-gradient(ellipse 40% 40% at 50% 20%, rgba(183, 110, 121, 0.05) 0%, transparent 70%);
   pointer-events: none;
 }
-#petal-photos { position: relative; width: 100%; height: 100%; min-height: 960px; }
+#petal-photos {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
 /* Individual floating photo */
 .petal-photo {
-  position: absolute;
+  position: relative;
   cursor: pointer;
   will-change: transform;
   transform-origin: center center;
